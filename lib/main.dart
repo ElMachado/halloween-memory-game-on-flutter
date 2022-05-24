@@ -140,27 +140,6 @@ class _HomeState extends State<Home> {
                         const SizedBox(
                           height: 20,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            // TODO
-                          },
-                          child: Container(
-                            height: 50,
-                            width: 200,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blue, width: 2),
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            child: const Text(
-                              "Rate Us",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
                       ],
                     ))
             ],
@@ -255,7 +234,7 @@ class _TileState extends State<Tile> {
                 : widget.imagePathUrl)
             : Container(
                 color: Colors.white,
-                child: Image.asset("assets/correct.png"),
+                child: Image.asset("/correct.png"),
               ),
       ),
     );
