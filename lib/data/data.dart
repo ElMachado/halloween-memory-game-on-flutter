@@ -1,9 +1,9 @@
 import 'package:halloween_memory_game/model/tilemodel.dart';
 
-String selectedTile = "";
-int selectedIndex = 0;
-bool selected = true;
-int points = 0;
+String? selectedTile;
+int? selectedIndex = 0;
+bool? selected;
+int? points = 0;
 
 List<TileModel> myPairs = <TileModel>[];
 List<bool> clicked = <bool>[];

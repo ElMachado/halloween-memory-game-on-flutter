@@ -61,6 +61,7 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
+          alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
           child: Column(
             children: <Widget>[
@@ -89,21 +90,25 @@ class _HomeState extends State<Home> {
                 height: 20,
               ),
               points != 800
-                  ? GridView(
-                      shrinkWrap: true,
-                      //physics: ClampingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              mainAxisSpacing: 0.0, maxCrossAxisExtent: 100.0),
-                      children: List.generate(gridViewTiles.length, (index) {
-                        return Tile(
-                          imagePathUrl:
-                              gridViewTiles[index].getImageAssetPath(),
-                          tileIndex: index,
-                          parent: this,
-                        );
-                      }),
+                  ? SizedBox(
+                      width: 400,
+                      child: GridView(
+                        shrinkWrap: true,
+                        //physics: ClampingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                mainAxisSpacing: 0.0,
+                                maxCrossAxisExtent: 100.0),
+                        children: List.generate(gridViewTiles.length, (index) {
+                          return Tile(
+                            imagePathUrl:
+                                gridViewTiles[index].getImageAssetPath(),
+                            tileIndex: index,
+                            parent: this,
+                          );
+                        }),
+                      ),
                     )
                   : Container(
                       child: Column(
@@ -171,13 +176,13 @@ class Tile extends StatefulWidget {
   int tileIndex;
   _HomeState parent;
 
+  // ignore: library_private_types_in_public_api
   Tile({
     Key? key,
-    required this.imagePathUrl,
-    required this.tileIndex,
+    this.imagePathUrl = '',
+    this.tileIndex = 0,
     required this.parent,
   }) : super(key: key);
-
   @override
   _TileState createState() => _TileState();
 }
@@ -187,7 +192,7 @@ class _TileState extends State<Tile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (!selected) {
+        if (!selected!) {
           setState(() {
             myPairs[widget.tileIndex].setIsSelected(true);
           });
@@ -195,8 +200,8 @@ class _TileState extends State<Tile> {
             /// testing if the selected tiles are same
             if (selectedTile == myPairs[widget.tileIndex].getImageAssetPath()) {
               print("add point");
-              points = points + 100;
-              print("$selectedTile thishis${widget.imagePathUrl}");
+              points = (points! + 100);
+              print("$selectedTile this his${widget.imagePathUrl}");
 
               TileModel tileModel = TileModel();
               print(widget.tileIndex);
@@ -205,7 +210,7 @@ class _TileState extends State<Tile> {
                 tileModel.setImageAssetPath("");
                 myPairs[widget.tileIndex] = tileModel;
                 print(selectedIndex);
-                myPairs[selectedIndex] = tileModel;
+                myPairs[selectedIndex!] = tileModel;
                 widget.parent.setState(() {});
                 setState(() {
                   selected = false;
@@ -222,7 +227,7 @@ class _TileState extends State<Tile> {
               Future.delayed(const Duration(seconds: 2), () {
                 widget.parent.setState(() {
                   myPairs[widget.tileIndex].setIsSelected(false);
-                  myPairs[selectedIndex].setIsSelected(false);
+                  myPairs[selectedIndex!].setIsSelected(false);
                 });
                 setState(() {
                   selected = false;
